@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramadhan Digital Board Ultimate</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+text-align:center;
+}
+
+.container{
+padding:20px;
+}
+
+h1{
+margin:10px 0;
+}
+
+.clock{
+font-size:50px;
+font-weight:bold;
+color:#00ffcc;
+text-shadow:0 0 15px #00ffcc;
+}
+
+.date{
+margin-bottom:15px;
+}
+
+.card{
+background:rgba(255,255,255,0.1);
+padding:15px;
+margin:10px auto;
+border-radius:15px;
+width:95%;
+max-width:420px;
+box-shadow:0 0 15px rgba(0,0,0,0.5);
+}
+
+.prayer{
+display:flex;
+justify-content:space-between;
+margin:5px 0;
+font-size:18px;
+}
+
+.countdown{
+font-size:18px;
+color:yellow;
+margin-top:5px;
+}
+
+.progress-bar{
+height:20px;
+background:#444;
+border-radius:20px;
+overflow:hidden;
+margin-top:10px;
+}
+
+.progress{
+height:100%;
+background:lime;
+width:43%;
+}
+
+.quote{
+font-style:italic;
+margin-top:10px;
+color:#ffd700;
+}
+
+.creator{
+margin-top:15px;
+font-size:14px;
+color:#ffaaaa;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🕌 RAMADHAN DIGITAL BOARD</h1>
+<div class="creator">Dibuat oleh Derio Ferdika & Rifki</div>
+
+<div class="clock" id="clock"></div>
+<div class="date" id="date"></div>
+
+<div class="card">
+<h3>🕋 Jadwal Sholat & Imsak</h3>
+<div class="prayer"><span>Imsak</span><span>04:35</span></div>
+<div class="prayer"><span>Subuh</span><span>04:45</span></div>
+<div class="prayer"><span>Dzuhur</span><span>12:15</span></div>
+<div class="prayer"><span>Ashar</span><span>15:30</span></div>
+<div class="prayer"><span>Maghrib</span><span>18:20</span></div>
+<div class="prayer"><span>Isya</span><span>19:30</span></div>
+<div class="countdown" id="countdown"></div>
+</div>
+
+<div class="card">
+<h3>🌙 Progress Ramadhan</h3>
+<div>🌙 Puasa Hari ke-13 dari 30</div>
+<div class="progress-bar">
+<div class="progress"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>📖 Quote Hari Ini</h3>
+<div class="quote" id="quote"></div>
+</div>
+
+</div>
+
+<script>
+
+// JAM REALTIME
+function updateClock(){
+const now=new Date();
+document.getElementById("clock").innerText=
+now.toLocaleTimeString("id-ID");
+document.getElementById("date").innerText=
+now.toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+}
+setInterval(updateClock,1000);
+updateClock();
+
+// HITUNG MUNDUR KE MAGHRIB
+function updateCountdown(){
+const now=new Date();
+let maghrib=new Date();
+maghrib.setHours(18,20,0);
+
+if(now>maghrib){
+maghrib.setDate(maghrib.getDate()+1);
+}
+
+let diff=maghrib-now;
+
+let h=Math.floor(diff/(1000*60*60));
+let m=Math.floor((diff%(1000*60*60))/(1000*60));
+let s=Math.floor((diff%(1000*60))/1000
